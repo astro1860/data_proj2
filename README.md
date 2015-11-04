@@ -1,5 +1,5 @@
 # data_proj2
-**Introduction**
+**INTRO**
 
 data mining project 2 implemented with SGD and SVM kernel
 implemented with sklearn class RBFSampler,Nystroem,AdditiveChi2Sampler,SkewedChi2Sampler
