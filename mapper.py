@@ -3,11 +3,11 @@
 import sys
 import numpy as np
 from sklearn.linear_model import SGDClassifier
-from sklearn.kernel_approximation import (RBFSampler,Nystroem)
+from sklearn.kernel_approximation import (RBFSampler,Nystroem,AdditiveChi2Sampler,SkewedChi2Sampler)
 
 from sklearn.svm import SVC
 
-DIMENSION = 400  # Dimension of the original data.
+#DIMENSION = 400  # Dimension of the original data.
 CLASSES = (-1, +1)   # The classes that we are trying to predict.
 
 
@@ -15,13 +15,15 @@ np.random.seed(seed=42)
 
 def transform(x_original):
     #w_feature = RBFSampler(gamma=1, random_state=1)
-    w_feature = Nystroem(kernel='rbf', gamma=None, coef0=1, degree=3, kernel_params=None, n_components=100, random_state=None)
+    #w_feature = Nystroem(kernel='rbf', gamma=1.0, n_components=400, random_state=1)
+    w_feature = AdditiveChi2Sampler(sample_steps=2, sample_interval=None)
+    #w_feature = SkewedChi2Sampler(skewedness=1.0, n_components=100, random_state=1)
     x = w_feature.fit_transform(x_original)
     return x
 
 if __name__ == "__main__":
     #f = open('/Users/Hangxin/Desktop/training_set.txt')
-    clf = SGDClassifier(loss='hinge', penalty='l2',alpha=0.0001, l1_ratio=0.15, fit_intercept=False, n_iter=1, shuffle=True, verbose=0, epsilon=0.1, n_jobs=1, random_state=None, learning_rate='optimal', eta0=0.0, power_t=0.5, class_weight=None, warm_start=False, average=False)
+    clf = SGDClassifier(loss='hinge', penalty='l2',alpha=0.0001, l1_ratio=0.15, fit_intercept=False, n_iter=1, shuffle=True, verbose=0, epsilon=0.1, n_jobs=1, random_state=1, learning_rate='optimal', eta0=0.0, power_t=0.5, class_weight=None, warm_start=False, average=False)
     #Extract Features
     index = 0
     for line in sys.stdin:
