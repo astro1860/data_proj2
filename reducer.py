@@ -5,7 +5,7 @@ import logging
 import sys
 import numpy as np
 #need to change the size of data_w when weight n_components changes!!
-data_w = np.array([]).reshape(0,1200)
+data_w = np.array([]).reshape(0,12000)
 
 for line in sys.stdin:
     line = line.strip()
